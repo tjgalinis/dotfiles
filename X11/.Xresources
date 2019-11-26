@@ -1,0 +1,188 @@
+!-------------------------------------------------------------------------------
+! File: .Xresources
+! Author: Thomas Galinis <tjgalinis@gmail.com>
+!-------------------------------------------------------------------------------
+
+! Fonts {{{
+
+!*font:           xft:Monospace:size=12
+!*boldFont:       xft:Monospace:bold:size=12
+!*italicFont:     xft:Monospace:italic:size=12
+!*boldItalicFont: xft:Monospace:italic:size=12
+
+*font:           xft:Terminus:size=14
+*boldFont:       xft:Terminus:bold:size=14
+*italicFont:     xft:Terminus:italic:size=14
+*boldItalicFont: xft:Terminus:bold:italic:size=14
+
+!*font:           xft:Inconsolata:medium:size=12
+!*boldFont:       xft:Inconsolata:bold:size=12
+!*italicFont:     xft:Inconsolata:italic:size=12
+!*boldItalicFont: xft:Inconsolata:bold:italic:size=12
+
+! }}}
+! Color palette: Gnome Terminal {{{
+
+!*background: #000000
+!*foreground: #CCCCCC
+!*color0:     #000000
+!*color1:     #CC0000
+!*color2:     #4E9A06
+!*color3:     #C4A000
+!*color4:     #3465A4
+!*color5:     #75507B
+!*color6:     #06989A
+!*color7:     #D3D7CF
+!*color8:     #555753
+!*color9:     #EF2929
+!*color10:    #8AE234
+!*color11:    #FCE94F
+!*color12:    #729FCF
+!*color13:    #AD7FA8
+!*color14:    #34E2E2
+!*color15:    #EEEEEC
+
+! }}}
+! Color palette: Tango {{{
+
+!*background: #2B2B2B
+!*foreground: #DEDEDE
+!
+!*colorUL:    #86A2B0
+!
+!! black
+!*color0:     #2E3436
+!*color8:     #555753
+!! red
+!*color1:     #CC0000
+!*color9:     #EF2929
+!! green
+!*color2:     #4E9A06
+!*color10:    #8AE234
+!! yellow
+!*color3:     #C4A000
+!*color11:    #FCE94F
+!! blue
+!*color4:     #3465A4
+!*color12:    #729FCF
+!! magent
+!*color5:     #75507B
+!*color13:    #AD7FA8
+!! cyan
+!*color6:     #06989A
+!*color14:    #34E2E2
+!! white
+!*color7:     #D3D7CF
+!*color15:    #EEEEEC
+
+! }}}
+! Color palette: Solarized Dark {{{
+!Source http://github.com/altercation/solarized
+
+*background: #002b36
+*foreground: #657b83
+!!*fading: 40
+*fadeColor: #002b36
+*cursorColor: #93a1a1
+*pointerColorBackground: #586e75
+*pointerColorForeground: #93a1a1
+
+! black dark/light
+*color0: #073642
+*color8: #002b36
+
+! red dark/light
+*color1: #dc322f
+*color9: #cb4b16
+
+! green dark/light
+*color2: #859900
+*color10: #586e75
+
+! yellow dark/light
+*color3: #b58900
+*color11: #657b83
+
+! blue dark/light
+*color4: #268bd2
+*color12: #839496
+
+! magenta dark/light
+*color5: #d33682
+*color13: #6c71c4
+
+! cyan dark/light
+*color6: #2aa198
+*color14: #93a1a1
+
+! white dark/light
+*color7: #eee8d5
+*color15: #fdf6e3
+! }}}
+! URxvt {{{
+
+URxvt.scrollBar: false
+URxvt.visualBell: false
+URxvt.cursorBlink: true
+URxvt.xftAutoHint: true
+URxvt.iso14755: false
+URxvt.iso14755_52: false
+
+URxvt.perl-ext-common: resize-font,fullscreen
+
+! fullscreen keybinds
+URxvt.keysym.F11: perl:fullscreen:switch
+
+! resize-font keybinds
+URxvt.keysym.C-minus: resize-font:smaller
+URxvt.keysym.C-plus: resize-font:bigger
+URxvt.keysym.C-equal: resize-font:reset
+URxvt.keysym.C-question: resize-font:show
+
+! use ctrl+shift to copy and paste
+
+! Internal border of number pixels. This resource is limited to 100; option -b.
+URxvt*internalBorder: 0
+
+! }}}
+! xscreensaver {{{
+
+xscreensaver.splash: false
+
+! font settings
+xscreensaver.Dialog.headingFont: xft:terminus:regular:size=13
+xscreensaver.Dialog.bodyFont:    xft:terminus:regular:size=13
+xscreensaver.Dialog.labelFont:   xft:terminus:regular:size=13
+xscreensaver.Dialog.unameFont:   xft:terminus:regular:size=13
+xscreensaver.Dialog.buttonFont:  xft:terminus:regular:size=13
+xscreensaver.Dialog.dateFont:    xft:terminus:regular:size=13
+xscreensaver.passwd.passwdFont:  xft:terminus:regular:size=13
+
+! general dialog box (affects main hostname, username, password text)
+xscreensaver.Dialog.foreground:          #bbbbbb
+xscreensaver.Dialog.background:          #222222
+xscreensaver.Dialog.borderColor:         #444444
+xscreensaver.Dialog.topShadowColor:      #111111
+xscreensaver.Dialog.bottomShadowColor:   #111111
+xscreensaver.Dialog.Button.foreground:   #eeeeee
+xscreensaver.Dialog.Button.background:   #005577
+xscreensaver.Dialog.internalBorderWidth: 24
+xscreensaver.Dialog.borderWidth:         2
+xscreensaver.Dialog.shadowThickness:     2
+
+!username/password input box and date text colour
+xscreensaver.Dialog.text.foreground:     #666666
+xscreensaver.Dialog.text.background:     #ffffff
+
+! timeout bar (background is actually determined by Dialog.text.background)
+xscreensaver.passwd.thermometer.foreground: #005577
+xscreensaver.passwd.thermometer.background: #bbbbbb
+xscreensaver.passwd.thermometer.width:      8
+
+! datestamp format--see the strftime(3) manual page for details
+xscreensaver.dateFormat: %I:%M %P %a %b %d, %Y
+
+! use LightDM for user switching
+!xscreensaver.newLoginCommand: dm-tool switch-to-greeter
+
+! }}}

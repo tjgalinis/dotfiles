@@ -1,0 +1,167 @@
+#-------------------------------------------------------------------------------
+# File: ~/.bashrc
+# Author: Thomas Galinis <tjgalinis@gmail.com>
+#-------------------------------------------------------------------------------
+
+# If not running interactively, don't do anything
+case "$-" in
+    *i*) ;;
+    *) return;;
+esac
+
+# Shell Options {{{
+
+# don't put duplicate lines or lines starting with space in the history.
+# See bash(1) for more options
+HISTCONTROL=ignoreboth
+
+# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+HISTSIZE=1000
+HISTFILESIZE=2000
+
+# append to the history file, don't overwrite it
+shopt -s histappend
+
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
+
+# If set, the pattern "**" used in a pathname expansion context will
+# match all files and zero or more directories and subdirectories.
+shopt -s globstar
+
+# make less more friendly for non-text input files, see lesspipe(1)
+#[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+# }}}
+# GCC Colors {{{ 
+
+printf -v GCC_COLORS "%s:%s:%s:%s:%s:%s" \
+    "error=01;31" "warning=01;35" "note=01;36" \
+    "caret=01;32" "locus=00;01" "quote=00;01"
+
+export GCC_COLORS
+
+# }}}
+# Aliases {{{
+
+if [ -x /usr/bin/dircolors ]
+then
+    [ -r ~/.dircolors ] && \
+        eval "$(dircolors -b ~/.dircolors)" || \
+        eval "$(dircolors -b)"
+
+    alias ls='ls --color=auto --group-directories-first -h'
+    alias dir='dir --color=auto -h'
+    alias vdir='vdir --color=auto'
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+
+alias watch="watch -t"
+
+# }}}
+# Bash Completion {{{
+
+if ! shopt -oq posix
+then
+    if [ -f /usr/share/bash-completion/bash_completion ]
+    then
+        . /usr/share/bash-completion/bash_completion
+    elif [ -f /etc/bash_completion ]
+    then
+        . /etc/bash_completion
+    fi
+
+    if [ -f /usr/share/git-core/contrib/completion/git-prompt.sh ]
+    then
+        . /usr/share/git-core/contrib/completion/git-prompt.sh
+    fi
+fi
+
+# }}}
+# Git Prompt Settings {{{
+
+GIT_PS1_STATESEPARATOR=" "
+GIT_PS1_SHOWDIRTYSTATE=1
+GIT_PS1_SHOWUPSTREAM="auto"
+GIT_PS1_SHOWSTASHSTATE=1
+GIT_PS1_SHOWUNTRACKEDFILES=1
+
+# }}}
+# PS1 Prompt {{{
+
+PS1_STYLE=long-fancy
+
+case "$PS1_STYLE" in
+bare)
+    PS1="\$ "
+    ;;
+
+short)
+    PS1="\W\$(__git_ps1 ' (%s)') \$ "
+    ;;
+
+short-fancy)
+    printf -v PS1 "%s\$(__git_ps1 ' %s') \$ " \
+        "\033[01;34m\W\033[0m" \
+        "\033[01;33m(%s)\033[0m"
+    ;;
+
+shafer)
+    PS1="\u at \h in \W\$(__git_ps1 ' on %s')\n\$ "
+    ;;
+
+shafer-fancy)
+    printf -v PS1 "%s at %s in %s\$(__git_ps1 ' %s')\n\$ " \
+        "\033[01;32m\u\033[0m" \
+        "\033[01;35m\h\033[0m" \
+        "\033[01;34m\W\033[0m" \
+        "on \033[01;33m%s\033[0m"
+    ;;
+
+long)
+    PS1="\u@\h \W\$(__git_ps1 ' (%s)')\n\$ "
+    ;;
+
+long-fancy)
+    printf -v PS1 "%s %s\$(__git_ps1 ' %s')\n\$ " \
+        "\033[01;32m\u@\h\033[0m" \
+        "\033[01;34m\W\033[0m" \
+        "\033[01;33m(%s)\033[0m"
+    ;;
+
+*)
+    PS1="[\u@\h \W]\$ "
+    ;;
+esac
+
+# If this is an xterm set the title to user@host:dir
+case "$TERM" in
+xterm*|rxvt*)
+    PS1="\e]0;\u@\h: \w\a$PS1"
+    ;;
+esac
+
+export PS1
+
+# }}}
+# PATH {{{
+
+if [ -d "$HOME/.local/bin" ]
+then
+    PATH="$HOME/.local/bin:$PATH"
+fi
+
+export PATH
+
+# }}}
+# SSH authentication w/ GnuPG {{{
+
+SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+
+export SSH_AUTH_SOCK
+
+# }}}
+
