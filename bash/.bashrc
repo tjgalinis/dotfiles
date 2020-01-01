@@ -33,6 +33,7 @@ shopt -s globstar
 # make less more friendly for non-text input files, see lesspipe(1)
 #[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
+
 # }}}
 # GCC Colors {{{ 
 
@@ -92,7 +93,7 @@ GIT_PS1_SHOWUNTRACKEDFILES=1
 # }}}
 # PS1 Prompt {{{
 
-PS1_STYLE=long-fancy
+PS1_STYLE=default
 
 case "$PS1_STYLE" in
 bare)
@@ -105,8 +106,8 @@ short)
 
 short-fancy)
     printf -v PS1 "%s\$(__git_ps1 ' %s') \$ " \
-        "\033[01;34m\W\033[0m" \
-        "\033[01;33m(%s)\033[0m"
+        "\[\033[01;34m\]\W\[\033[0m\]" \
+        "\[\033[01;33m\](%s)\[\033[0m\]"
     ;;
 
 shafer)
@@ -115,10 +116,10 @@ shafer)
 
 shafer-fancy)
     printf -v PS1 "%s at %s in %s\$(__git_ps1 ' %s')\n\$ " \
-        "\033[01;32m\u\033[0m" \
-        "\033[01;35m\h\033[0m" \
-        "\033[01;34m\W\033[0m" \
-        "on \033[01;33m%s\033[0m"
+        "\[\033[01;32m\]\u\[\033[0m\]" \
+        "\[\033[01;35m\]\h\[\033[0m\]" \
+        "\[\033[01;34m\]\W\[\033[0m\]" \
+        "on \[\033[01;33m\]%s\[\033[0m\]"
     ;;
 
 long)
@@ -127,12 +128,12 @@ long)
 
 long-fancy)
     printf -v PS1 "%s %s\$(__git_ps1 ' %s')\n\$ " \
-        "\033[01;32m\u@\h\033[0m" \
-        "\033[01;34m\W\033[0m" \
-        "\033[01;33m(%s)\033[0m"
+        "\[\033[01;32m\]\u@\h\[\033[0m\]" \
+        "\[\033[01;34m\]\W\[\033[0m\]" \
+        "\[\033[01;33m\](%s)\[\033[0m\]"
     ;;
 
-*)
+default)
     PS1="[\u@\h \W]\$ "
     ;;
 esac
@@ -140,7 +141,7 @@ esac
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
 xterm*|rxvt*)
-    PS1="\e]0;\u@\h: \w\a$PS1"
+    PS1="\[\e]0;\u@\h: \w\a\]$PS1"
     ;;
 esac
 
