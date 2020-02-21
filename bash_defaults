@@ -1,6 +1,11 @@
+#!/bin/bash
+
 #-------------------------------------------------------------------------------
-# File: ~/.bashrc
+# File: dotfiles/bash_defaults
 # Author: Thomas Galinis <tjgalinis@gmail.com>
+#
+# Source this file in local bashrc. Environment can be modified by
+# overwriting variable defaults.
 #-------------------------------------------------------------------------------
 
 # If not running interactively, don't do anything {{{
@@ -100,9 +105,7 @@ GIT_PS1_SHOWUNTRACKEDFILES=1
 # }}}
 # PS1 Prompt {{{
 
-PS1_STYLE=default
-
-case "$PS1_STYLE" in
+case "${PS1_STYLE:-default}" in
 bare)
     PS1="\$ "
     ;;
