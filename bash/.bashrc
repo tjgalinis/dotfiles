@@ -3,12 +3,14 @@
 # Author: Thomas Galinis <tjgalinis@gmail.com>
 #-------------------------------------------------------------------------------
 
-# If not running interactively, don't do anything
-case "$-" in
+# If not running interactively, don't do anything {{{
+
+case "${-}" in
     *i*) ;;
     *) return;;
 esac
 
+# }}}
 # Shell Options {{{
 
 # don't put duplicate lines or lines starting with space in the history.
@@ -37,9 +39,14 @@ shopt -s globstar
 # }}}
 # GCC Colors {{{ 
 
-printf -v GCC_COLORS "%s:%s:%s:%s:%s:%s" \
+GCC_COLORS=(
     "error=01;31" "warning=01;35" "note=01;36" \
     "caret=01;32" "locus=00;01" "quote=00;01"
+)
+
+printf -v GCC_COLORS ":%s" "${GCC_COLORS[@]}"
+
+GCC_COLORS="${GCC_COLORS:1}"
 
 export GCC_COLORS
 
@@ -145,16 +152,26 @@ xterm*|rxvt*)
     ;;
 esac
 
+unset PS1_STYLE
+
 export PS1
 
 # }}}
 # PATH {{{
 
-if [ -d "$HOME/.local/bin" ]
-then
-    PATH="$HOME/.local/bin:$PATH"
-fi
+PATHS_TO_INCLUDE=(
+    "$HOME/.local/bin"
+)
 
+for p in ${PATHS_TO_INCLUDE[@]}
+do
+    if [ -d "$p" ]
+    then
+        PATH="$p:$PATH"
+    fi
+done
+
+unset PATHS_TO_INCLUDE
 export PATH
 
 # }}}
